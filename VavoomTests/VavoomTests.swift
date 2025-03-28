@@ -1,10 +1,4 @@
-//
-//  VavoomTests.swift
-//  VavoomTests
-//
-//  Created by Adam Campbell on 29/3/2025.
-//
-
+import Sharing
 import Testing
 @testable import Vavoom
 
