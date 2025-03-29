@@ -1,21 +1,20 @@
-//
-//  ContentView.swift
-//  Vavoom
-//
-//  Created by Adam Campbell on 29/3/2025.
-//
-
+import Sharing
 import SwiftUI
 
 struct ContentView: View {
+    @SharedReader(.animeQuote) var animeQuote
+
+    var quote: String {
+        animeQuote?.content ?? "This is a long placeholder that is shown when the quote is loading and should go over a couple lines."
+    }
+    var redactionReasons: RedactionReasons { animeQuote == nil ? .placeholder : [] }
+
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            Text(quote)
         }
         .padding()
+        .redacted(reason: redactionReasons)
     }
 }
 
