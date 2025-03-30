@@ -6,8 +6,7 @@ struct ContentView: View {
 
     var animeName: String {
         let name = animeQuote?.anime.name ?? "Example Name"
-        let nameLine = (animeQuote?.anime.altName).map { "\(name) (\($0))" } ?? name
-        return "From: \(nameLine)"
+        return (animeQuote?.anime.altName).map { "\(name) (\($0))" } ?? name
     }
     var quote: String {
         animeQuote?.content ??
@@ -20,18 +19,23 @@ struct ContentView: View {
     var redactionReasons: RedactionReasons { animeQuote == nil ? .placeholder : [] }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            Text(quote)
-                .padding(.bottom, 4)
-            Text(quotee)
-                .font(.callout)
-                .padding(.bottom)
-            Text(animeName).font(.footnote)
+        ScrollView {
+            VStack(alignment: .leading, spacing: 16) {
+                Image(systemName: "quote.opening")
+                    .font(.title)
+                Text(quote)
+                    .font(.title)
+                Text(quotee)
+                    .font(.title2)
+                Text(animeName)
+                    .font(.title3)
+            }
+            .padding(32)
+            .redacted(reason: redactionReasons)
+            .background(.background.secondary, in: RoundedRectangle(cornerRadius: 10))
+            .padding()
         }
-        .padding()
-        .redacted(reason: redactionReasons)
-        .background(.background.secondary, in: RoundedRectangle(cornerRadius: 10))
-        .padding()
+        .defaultScrollAnchor(.center)
     }
 }
 
