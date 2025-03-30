@@ -1,4 +1,5 @@
 import Foundation
+import SwiftUI
 import Testing
 @testable import Vavoom
 
@@ -9,7 +10,7 @@ struct QuoteViewTests {
 
         #expect(quoteView.quote == "Some things can't be prevented. The last of which, is death. All we can do is live until the day we die. Control what we can... and fly free!")
         #expect(quoteView.quotee == "- Deneil Young")
-        #expect(quoteView.animeName == "Space Brothers (Uchuu Kyoudai)")
+        #expect(quoteView.source == "Space Brothers (Uchuu Kyoudai)")
         #expect(quoteView.redactionReasons == [])
     }
 
@@ -18,8 +19,17 @@ struct QuoteViewTests {
 
         #expect(quoteView.quote == "It doesn't matter who your parents were. Everyone is a child of the sea.")
         #expect(quoteView.quotee == "- Whitebeard")
-        #expect(quoteView.animeName == "One Piece")
+        #expect(quoteView.source == "One Piece")
         #expect(quoteView.redactionReasons == [])
+    }
+
+    @Test func loadingQuote() {
+        let quoteView = QuoteView(animeQuote: .init(ResultReaderKey<AnimeQuote?>(result: nil)))
+
+        #expect(quoteView.quote == "This is a long placeholder that is shown when the quote is loading and should go over a couple lines.")
+        #expect(quoteView.quotee == "- Example Name")
+        #expect(quoteView.source == "Example Name")
+        #expect(quoteView.redactionReasons == .placeholder)
     }
 
 }

@@ -4,13 +4,6 @@ import SwiftUI
 struct QuoteView: View {
     @SharedReader(.animeQuote) var animeQuote
 
-    var animeName: String {
-        let name = animeQuote?.anime.name ?? "Example Name"
-        let dualName = (animeQuote?.anime.altName).flatMap { altName in
-            altName != name ? "\(name) (\(altName))" : nil
-        }
-        return dualName ?? name
-    }
     var quote: String {
         animeQuote?.content ??
             "This is a long placeholder that is shown when the quote is loading and should go over a couple lines."
@@ -18,6 +11,13 @@ struct QuoteView: View {
     var quotee: String {
         let quotee = animeQuote?.character.name ?? "Example Name"
         return "- \(quotee)"
+    }
+    var source: String {
+        let name = animeQuote?.anime.name ?? "Example Name"
+        let dualName = (animeQuote?.anime.altName).flatMap { altName in
+            altName != name ? "\(name) (\(altName))" : nil
+        }
+        return dualName ?? name
     }
     var redactionReasons: RedactionReasons { animeQuote == nil ? .placeholder : [] }
 
@@ -30,7 +30,7 @@ struct QuoteView: View {
                     .font(.title)
                 Text(quotee)
                     .font(.title2)
-                Text(animeName)
+                Text(source)
                     .font(.title3)
             }
             .padding(32)
