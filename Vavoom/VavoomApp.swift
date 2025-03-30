@@ -4,7 +4,7 @@ import SwiftUI
 struct VavoomApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            QuoteView()
         }
     }
 }

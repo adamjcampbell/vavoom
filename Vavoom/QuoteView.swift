@@ -1,7 +1,7 @@
 import Sharing
 import SwiftUI
 
-struct ContentView: View {
+struct QuoteView: View {
     @SharedReader(.animeQuote) var animeQuote
 
     var animeName: String {
@@ -40,5 +40,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    QuoteView()
 }
