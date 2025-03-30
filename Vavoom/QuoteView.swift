@@ -40,5 +40,17 @@ struct QuoteView: View {
 }
 
 #Preview {
-    QuoteView()
+    QuoteView(
+        animeQuote: .init(
+            ResultReaderKey<AnimeQuote?>(
+                result: .success(
+                    AnimeQuote(
+                        content: "This is a quote from an anime",
+                        anime: .init(id: 0, name: "Cool Anime", altName: "Kakoi Anime"),
+                        character: .init(id: 0, name: "Tanaka Yoshi")
+                    )
+                )
+            )
+        )
+    )
 }
