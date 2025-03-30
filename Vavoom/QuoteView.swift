@@ -6,7 +6,10 @@ struct QuoteView: View {
 
     var animeName: String {
         let name = animeQuote?.anime.name ?? "Example Name"
-        return (animeQuote?.anime.altName).map { "\(name) (\($0))" } ?? name
+        let dualName = (animeQuote?.anime.altName).flatMap { altName in
+            altName != name ? "\(name) (\(altName))" : nil
+        }
+        return dualName ?? name
     }
     var quote: String {
         animeQuote?.content ??
@@ -40,17 +43,7 @@ struct QuoteView: View {
 }
 
 #Preview {
-    QuoteView(
-        animeQuote: .init(
-            ResultReaderKey<AnimeQuote?>(
-                result: .success(
-                    AnimeQuote(
-                        content: "This is a quote from an anime",
-                        anime: .init(id: 0, name: "Cool Anime", altName: "Kakoi Anime"),
-                        character: .init(id: 0, name: "Tanaka Yoshi")
-                    )
-                )
-            )
-        )
-    )
+    let rawJSON = #"{"status":"success","data":{"content":"Some things can't be prevented. The last of which, is death. All we can do is live until the day we die. Control what we can... and fly free!","anime":{"id":451,"name":"Space Brothers","altName":"Uchuu Kyoudai"},"character":{"id":1880,"name":"Deneil Young"}}}"#
+    let quote = try! JSONDecoder().decode(AnimeQuoteResponse.self, from: rawJSON.data(using: .utf8)!).data
+    QuoteView(animeQuote: .init(ResultReaderKey<AnimeQuote?>(result: .success(quote))))
 }

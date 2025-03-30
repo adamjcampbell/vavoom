@@ -1,7 +1,6 @@
 import Foundation
 import Sharing
-
-let rawJSON = #"{"status":"success","data":{"content":"Some things can't be prevented. The last of which, is death. All we can do is live until the day we die. Control what we can... and fly free!","anime":{"id":451,"name":"Space Brothers","altName":"Uchuu Kyoudai"},"character":{"id":1880,"name":"Deneil Young"}}}"#
+import os
 
 struct AnimeQuoteResponse: Decodable {
     var status: String
@@ -17,7 +16,7 @@ struct AnimeQuote: Decodable {
 struct Anime: Decodable {
     var id: Int
     var name: String
-    var altName: String?
+    var altName: String
 }
 
 struct Character: Decodable {
@@ -27,10 +26,23 @@ struct Character: Decodable {
 
 struct AnimeQuoteKey: SharedReaderKey {
     let id = UUID()
+    let loadTask = OSAllocatedUnfairLock<Task<Void, Never>?>(initialState: nil)
 
     func load(context: Sharing.LoadContext<AnimeQuote?>, continuation: Sharing.LoadContinuation<AnimeQuote?>) {
-        let response = try! JSONDecoder().decode(AnimeQuoteResponse.self, from: rawJSON.data(using: .utf8)!)
-        continuation.resume(returning: response.data)
+        let request = URLRequest(url: .init(string: "https://animechan.io/api/v1/quotes/random")!)
+
+        loadTask.withLock { task in
+            task?.cancel()
+            task = Task {
+                do {
+                    let data = try await URLSession.shared.data(for: request).0
+                    let quote = try JSONDecoder().decode(AnimeQuoteResponse.self, from: data).data
+                    continuation.resume(returning: quote)
+                } catch {
+                    continuation.resume(throwing: error)
+                }
+            }
+        }
     }
 
     func subscribe(context: Sharing.LoadContext<AnimeQuote?>, subscriber: Sharing.SharedSubscriber<AnimeQuote?>) -> Sharing.SharedSubscription {
