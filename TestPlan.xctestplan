@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "E6AA3377-0617-4AC3-B450-27B36D48DB0E",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Vavoom.xcodeproj",
+        "identifier" : "668494092D9768C800C39A5D",
+        "name" : "VavoomTests"
+      }
+    }
+  ],
+  "version" : 1
+}
