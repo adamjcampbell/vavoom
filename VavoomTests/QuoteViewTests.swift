@@ -6,7 +6,7 @@ import Testing
 struct QuoteViewTests {
 
     @Test func standardQuote() {
-        let quoteView = QuoteView(animeQuote: .init(ResultReaderKey<AnimeQuote?>(result: .success(.spaceBrothers))))
+        let quoteView = QuoteView(animeQuote: .init(ResultReaderKey<AnimeQuote?>(.spaceBrothers)))
 
         #expect(quoteView.quote == "Some things can't be prevented. The last of which, is death. All we can do is live until the day we die. Control what we can... and fly free!")
         #expect(quoteView.quotee == "- Deneil Young")
@@ -15,7 +15,7 @@ struct QuoteViewTests {
     }
 
     @Test func duplicateNameQuote() {
-        let quoteView = QuoteView(animeQuote: .init(ResultReaderKey<AnimeQuote?>(result: .success(.onePiece))))
+        let quoteView = QuoteView(animeQuote: .init(ResultReaderKey<AnimeQuote?>(.onePiece)))
 
         #expect(quoteView.quote == "It doesn't matter who your parents were. Everyone is a child of the sea.")
         #expect(quoteView.quotee == "- Whitebeard")
@@ -24,7 +24,7 @@ struct QuoteViewTests {
     }
 
     @Test func loadingQuote() {
-        let quoteView = QuoteView(animeQuote: .init(ResultReaderKey<AnimeQuote?>(result: nil)))
+        let quoteView = QuoteView(animeQuote: .init(ResultReaderKey<AnimeQuote?>()))
 
         #expect(quoteView.quote == "This is a long placeholder that is shown when the quote is loading and should go over a couple lines.")
         #expect(quoteView.quotee == "- Example Name")
