@@ -49,6 +49,24 @@ struct QuoteViewTests {
         }
     }
 
+    @Test func refreshingQuote() async throws {
+        let quoteView = QuoteView(animeQuote: .init(ResultReaderKey<AnimeQuote?>(.spaceBrothers)))
+
+        await #expect(quoteView.quote == "Some things can't be prevented. The last of which, is death. All we can do is live until the day we die. Control what we can... and fly free!")
+        await #expect(quoteView.quotee == "- Deneil Young")
+        await #expect(quoteView.source == "Space Brothers (Uchuu Kyoudai)")
+        await #expect(quoteView.redactionReasons == [])
+        await #expect(quoteView.errorConfiguration == nil)
+
+        try await quoteView.refresh(ResultReaderKey<AnimeQuote?>(.onePiece))
+
+        await #expect(quoteView.quote == "It doesn't matter who your parents were. Everyone is a child of the sea.")
+        await #expect(quoteView.quotee == "- Whitebeard")
+        await #expect(quoteView.source == "One Piece")
+        await #expect(quoteView.redactionReasons == [])
+        await #expect(quoteView.errorConfiguration == nil)
+    }
+
 }
 
 extension AnimeQuote {
