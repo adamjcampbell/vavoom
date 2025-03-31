@@ -39,6 +39,13 @@ struct QuoteView: View {
             .padding()
         }
         .defaultScrollAnchor(.center)
+        .refreshable {
+            Task { try await refresh(.animeQuote) }
+        }
+    }
+
+    func refresh<Key>(_ key: Key) async throws where Key: SharedReaderKey, Key.Value == AnimeQuote? {
+        try await $animeQuote.load(key)
     }
 }
 
