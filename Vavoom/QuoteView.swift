@@ -32,7 +32,7 @@ struct QuoteView: View {
         }
     }
 
-    struct ErrorConfiguration {
+    struct ErrorConfiguration: Equatable {
         var title: String
         var systemImageName: String
         var description: String
