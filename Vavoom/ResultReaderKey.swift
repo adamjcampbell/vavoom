@@ -1,12 +1,12 @@
 import Foundation
 import Sharing
-import os
+import Synchronization
 
-struct ResultReaderKey<Value: Sendable>: SharedReaderKey {
+final class ResultReaderKey<Value: Sendable>: SharedReaderKey {
 
     let id = UUID()
     let result: Result<Value, any Error>?
-    let continuation = OSAllocatedUnfairLock<LoadContinuation<Value>?>(initialState: nil)
+    let continuation = Mutex<LoadContinuation<Value>?>(nil)
 
     init(_ value: Value) {
         self.result = .success(value)

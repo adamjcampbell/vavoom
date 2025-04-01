@@ -1,6 +1,6 @@
 import Foundation
 import Sharing
-import os
+import Synchronization
 
 struct AnimeQuoteResponse: Decodable {
     var status: String
@@ -24,9 +24,9 @@ struct Character: Decodable {
     var name: String
 }
 
-struct AnimeQuoteKey: SharedReaderKey {
+final class AnimeQuoteKey: SharedReaderKey {
     let id = UUID()
-    let loadTask = OSAllocatedUnfairLock<Task<Void, Never>?>(initialState: nil)
+    let loadTask = Mutex<Task<Void, Never>?>(nil)
 
     func load(context: Sharing.LoadContext<AnimeQuote?>, continuation: Sharing.LoadContinuation<AnimeQuote?>) {
         let request = URLRequest(url: .init(string: "https://animechan.io/api/v1/quotes/random")!)
