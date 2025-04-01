@@ -36,17 +36,13 @@ struct QuoteViewTests {
     }
 
     @Test func errorQuote() {
-        // Sharing internally reports issues so we much wrap this with `withKnownIssue`s unfortunately
-        // There is an open discussion here if you feel it should not be so: https://github.com/pointfreeco/swift-sharing/discussions/143
-        withKnownIssue {
-            let quoteView = QuoteView(animeQuote: .init(ResultReaderKey<AnimeQuote?>(throwing: NSError(domain: "", code: 0))))
+        let quoteView = QuoteView(animeQuote: .init(ResultReaderKey<AnimeQuote?>(throwing: NSError(domain: "", code: 0))))
 
-            #expect(quoteView.quote == "This is a long placeholder that is shown when the quote is loading and should go over a couple lines.")
-            #expect(quoteView.quotee == "- Example Name")
-            #expect(quoteView.source == "Example Name")
-            #expect(quoteView.redactionReasons == .placeholder)
-            #expect(quoteView.errorConfiguration == .init(title: "Failed to load quote", systemImageName: "text.quote", description: "Pull to refresh to try again"))
-        }
+        #expect(quoteView.quote == "This is a long placeholder that is shown when the quote is loading and should go over a couple lines.")
+        #expect(quoteView.quotee == "- Example Name")
+        #expect(quoteView.source == "Example Name")
+        #expect(quoteView.redactionReasons == .placeholder)
+        #expect(quoteView.errorConfiguration == .init(title: "Failed to load quote", systemImageName: "text.quote", description: "Pull to refresh to try again"))
     }
 
     @Test func refreshingQuote() async throws {
