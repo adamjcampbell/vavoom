@@ -2,7 +2,7 @@ import Sharing
 import SwiftUI
 
 struct QuoteView: View {
-    @SharedReader(.animeQuote) var animeQuote
+    @State.SharedReader(.animeQuote) var animeQuote
 
     var quote: String {
         animeQuote?.content ??
