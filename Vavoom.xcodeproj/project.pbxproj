@@ -11,6 +11,7 @@
 		662345332DA0E2B600A1ECBE /* Dependencies in Frameworks */ = {isa = PBXBuildFile; productRef = 662345322DA0E2B600A1ECBE /* Dependencies */; };
 		662345352DA0E2B600A1ECBE /* DependenciesMacros in Frameworks */ = {isa = PBXBuildFile; productRef = 662345342DA0E2B600A1ECBE /* DependenciesMacros */; };
 		662345372DA0E2B600A1ECBE /* DependenciesTestSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 662345362DA0E2B600A1ECBE /* DependenciesTestSupport */; };
+		6623453A2DA0FA0800A1ECBE /* ConcurrencyExtras in Frameworks */ = {isa = PBXBuildFile; productRef = 662345392DA0FA0800A1ECBE /* ConcurrencyExtras */; };
 		668494292D97692800C39A5D /* Sharing in Frameworks */ = {isa = PBXBuildFile; productRef = 668494282D97692800C39A5D /* Sharing */; };
 /* End PBXBuildFile section */
 
@@ -59,6 +60,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				662345372DA0E2B600A1ECBE /* DependenciesTestSupport in Frameworks */,
+				6623453A2DA0FA0800A1ECBE /* ConcurrencyExtras in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -131,6 +133,7 @@
 			name = VavoomTests;
 			packageProductDependencies = (
 				662345362DA0E2B600A1ECBE /* DependenciesTestSupport */,
+				662345392DA0FA0800A1ECBE /* ConcurrencyExtras */,
 			);
 			productName = VavoomTests;
 			productReference = 6684940A2D9768C800C39A5D /* VavoomTests.xctest */;
@@ -168,6 +171,7 @@
 			packageReferences = (
 				668494272D97692800C39A5D /* XCRemoteSwiftPackageReference "swift-sharing" */,
 				662345312DA0E2B600A1ECBE /* XCRemoteSwiftPackageReference "swift-dependencies" */,
+				662345382DA0FA0800A1ECBE /* XCRemoteSwiftPackageReference "swift-concurrency-extras" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 668493FE2D9768C700C39A5D /* Products */;
@@ -477,6 +481,14 @@
 				minimumVersion = 1.9.0;
 			};
 		};
+		662345382DA0FA0800A1ECBE /* XCRemoteSwiftPackageReference "swift-concurrency-extras" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-concurrency-extras.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.3.1;
+			};
+		};
 		668494272D97692800C39A5D /* XCRemoteSwiftPackageReference "swift-sharing" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pointfreeco/swift-sharing.git";
@@ -502,6 +514,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 662345312DA0E2B600A1ECBE /* XCRemoteSwiftPackageReference "swift-dependencies" */;
 			productName = DependenciesTestSupport;
+		};
+		662345392DA0FA0800A1ECBE /* ConcurrencyExtras */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 662345382DA0FA0800A1ECBE /* XCRemoteSwiftPackageReference "swift-concurrency-extras" */;
+			productName = ConcurrencyExtras;
 		};
 		668494282D97692800C39A5D /* Sharing */ = {
 			isa = XCSwiftPackageProductDependency;
