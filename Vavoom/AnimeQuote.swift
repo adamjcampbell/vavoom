@@ -1,3 +1,4 @@
+import Dependencies
 import Foundation
 import Sharing
 import Synchronization
@@ -29,15 +30,13 @@ final class AnimeQuoteKey: SharedReaderKey {
     let loadTask = Mutex<Task<Void, Never>?>(nil)
 
     func load(context: Sharing.LoadContext<AnimeQuote?>, continuation: Sharing.LoadContinuation<AnimeQuote?>) {
-        let request = URLRequest(url: .init(string: "https://animechan.io/api/v1/quotes/random")!)
+        @Dependency(\.apiClient) var apiClient
 
         loadTask.withLock { task in
             task?.cancel()
             task = Task {
                 do {
-                    let data = try await URLSession.shared.data(for: request).0
-                    let quote = try JSONDecoder().decode(AnimeQuoteResponse.self, from: data).data
-                    continuation.resume(returning: quote)
+                    continuation.resume(returning: try await apiClient.getRandomQuote())
                 } catch {
                     continuation.resume(throwing: error)
                 }

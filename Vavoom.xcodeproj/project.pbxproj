@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		662345282D995E4300A1ECBE /* TestPlan.xctestplan in Resources */ = {isa = PBXBuildFile; fileRef = 662345272D995E4300A1ECBE /* TestPlan.xctestplan */; };
+		662345332DA0E2B600A1ECBE /* Dependencies in Frameworks */ = {isa = PBXBuildFile; productRef = 662345322DA0E2B600A1ECBE /* Dependencies */; };
+		662345352DA0E2B600A1ECBE /* DependenciesMacros in Frameworks */ = {isa = PBXBuildFile; productRef = 662345342DA0E2B600A1ECBE /* DependenciesMacros */; };
+		662345372DA0E2B600A1ECBE /* DependenciesTestSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 662345362DA0E2B600A1ECBE /* DependenciesTestSupport */; };
 		668494292D97692800C39A5D /* Sharing in Frameworks */ = {isa = PBXBuildFile; productRef = 668494282D97692800C39A5D /* Sharing */; };
 /* End PBXBuildFile section */
 
@@ -46,6 +49,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				668494292D97692800C39A5D /* Sharing in Frameworks */,
+				662345332DA0E2B600A1ECBE /* Dependencies in Frameworks */,
+				662345352DA0E2B600A1ECBE /* DependenciesMacros in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -53,6 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				662345372DA0E2B600A1ECBE /* DependenciesTestSupport in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,6 +105,8 @@
 			name = Vavoom;
 			packageProductDependencies = (
 				668494282D97692800C39A5D /* Sharing */,
+				662345322DA0E2B600A1ECBE /* Dependencies */,
+				662345342DA0E2B600A1ECBE /* DependenciesMacros */,
 			);
 			productName = Vavoom;
 			productReference = 668493FD2D9768C700C39A5D /* Vavoom.app */;
@@ -122,6 +130,7 @@
 			);
 			name = VavoomTests;
 			packageProductDependencies = (
+				662345362DA0E2B600A1ECBE /* DependenciesTestSupport */,
 			);
 			productName = VavoomTests;
 			productReference = 6684940A2D9768C800C39A5D /* VavoomTests.xctest */;
@@ -158,6 +167,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				668494272D97692800C39A5D /* XCRemoteSwiftPackageReference "swift-sharing" */,
+				662345312DA0E2B600A1ECBE /* XCRemoteSwiftPackageReference "swift-dependencies" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 668493FE2D9768C700C39A5D /* Products */;
@@ -459,6 +469,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		662345312DA0E2B600A1ECBE /* XCRemoteSwiftPackageReference "swift-dependencies" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-dependencies.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.9.0;
+			};
+		};
 		668494272D97692800C39A5D /* XCRemoteSwiftPackageReference "swift-sharing" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pointfreeco/swift-sharing.git";
@@ -470,6 +488,21 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		662345322DA0E2B600A1ECBE /* Dependencies */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 662345312DA0E2B600A1ECBE /* XCRemoteSwiftPackageReference "swift-dependencies" */;
+			productName = Dependencies;
+		};
+		662345342DA0E2B600A1ECBE /* DependenciesMacros */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 662345312DA0E2B600A1ECBE /* XCRemoteSwiftPackageReference "swift-dependencies" */;
+			productName = DependenciesMacros;
+		};
+		662345362DA0E2B600A1ECBE /* DependenciesTestSupport */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 662345312DA0E2B600A1ECBE /* XCRemoteSwiftPackageReference "swift-dependencies" */;
+			productName = DependenciesTestSupport;
+		};
 		668494282D97692800C39A5D /* Sharing */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 668494272D97692800C39A5D /* XCRemoteSwiftPackageReference "swift-sharing" */;
