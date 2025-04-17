@@ -5,19 +5,15 @@ struct QuoteView: View {
     @State.SharedReader(.animeQuote) var animeQuote
 
     var quote: String {
-        animeQuote?.content ??
+        animeQuote?.quote ??
             "This is a long placeholder that is shown when the quote is loading and should go over a couple lines."
     }
     var quotee: String {
-        let quotee = animeQuote?.character.name ?? "Example Name"
+        let quotee = animeQuote?.character ?? "Example Name"
         return "- \(quotee)"
     }
     var source: String {
-        let name = animeQuote?.anime.name ?? "Example Name"
-        let dualName = (animeQuote?.anime.altName).flatMap { altName in
-            altName != name ? "\(name) (\(altName))" : nil
-        }
-        return dualName ?? name
+        animeQuote?.show ?? "Example Name"
     }
     var redactionReasons: RedactionReasons { animeQuote == nil ? .placeholder : [] }
     var errorConfiguration: ErrorConfiguration? {
@@ -75,16 +71,16 @@ struct QuoteView: View {
     }
 }
 
-#Preview("Loaded") {
-    let rawJSON = #"{"status":"success","data":{"content":"Some things can't be prevented. The last of which, is death. All we can do is live until the day we die. Control what we can... and fly free!","anime":{"id":451,"name":"Space Brothers","altName":"Uchuu Kyoudai"},"character":{"id":1880,"name":"Deneil Young"}}}"#
-    let quote = try! JSONDecoder().decode(AnimeQuoteResponse.self, from: rawJSON.data(using: .utf8)!).data
-    QuoteView(animeQuote: .init(ResultReaderKey<AnimeQuote?>(result: .success(quote))))
-}
-
-#Preview("Error") {
-    QuoteView(animeQuote: .init(ResultReaderKey<AnimeQuote?>(throwing: NSError(domain: "", code: 0))))
-}
-
-#Preview("Loading") {
-    QuoteView(animeQuote: .init(ResultReaderKey<AnimeQuote?>()))
-}
+//#Preview("Loaded") {
+//    let rawJSON = #"{"status":"success","data":{"content":"Some things can't be prevented. The last of which, is death. All we can do is live until the day we die. Control what we can... and fly free!","anime":{"id":451,"name":"Space Brothers","altName":"Uchuu Kyoudai"},"character":{"id":1880,"name":"Deneil Young"}}}"#
+//    let quote = try! JSONDecoder().decode(AnimeQuoteResponse.self, from: rawJSON.data(using: .utf8)!).data
+//    QuoteView(animeQuote: .init(ResultReaderKey<AnimeQuote?>(result: .success(quote))))
+//}
+//
+//#Preview("Error") {
+//    QuoteView(animeQuote: .init(ResultReaderKey<AnimeQuote?>(throwing: NSError(domain: "", code: 0))))
+//}
+//
+//#Preview("Loading") {
+//    QuoteView(animeQuote: .init(ResultReaderKey<AnimeQuote?>()))
+//}

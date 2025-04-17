@@ -3,26 +3,11 @@ import Foundation
 import Sharing
 import Synchronization
 
-struct AnimeQuoteResponse: Decodable {
-    var status: String
-    var data: AnimeQuote
-}
-
 struct AnimeQuote: Decodable {
-    var content: String
-    var anime: Anime
-    var character: Character
-}
-
-struct Anime: Decodable {
-    var id: Int
-    var name: String
-    var altName: String
-}
-
-struct Character: Decodable {
-    var id: Int
-    var name: String
+    var _id: String
+    var character: String
+    var show: String
+    var quote: String
 }
 
 final class AnimeQuoteKey: SharedReaderKey {
