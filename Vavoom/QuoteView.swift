@@ -1,3 +1,4 @@
+import Dependencies
 import Sharing
 import SwiftUI
 
@@ -71,16 +72,28 @@ struct QuoteView: View {
     }
 }
 
-//#Preview("Loaded") {
-//    let rawJSON = #"{"status":"success","data":{"content":"Some things can't be prevented. The last of which, is death. All we can do is live until the day we die. Control what we can... and fly free!","anime":{"id":451,"name":"Space Brothers","altName":"Uchuu Kyoudai"},"character":{"id":1880,"name":"Deneil Young"}}}"#
-//    let quote = try! JSONDecoder().decode(AnimeQuoteResponse.self, from: rawJSON.data(using: .utf8)!).data
-//    QuoteView(animeQuote: .init(ResultReaderKey<AnimeQuote?>(result: .success(quote))))
-//}
-//
-//#Preview("Error") {
-//    QuoteView(animeQuote: .init(ResultReaderKey<AnimeQuote?>(throwing: NSError(domain: "", code: 0))))
-//}
-//
-//#Preview("Loading") {
-//    QuoteView(animeQuote: .init(ResultReaderKey<AnimeQuote?>()))
-//}
+#if DEBUG
+#Preview("Loaded") {
+    let _ = prepareDependencies {
+        $0.apiClient.getRandomQuote = { .blackLagoon }
+    }
+
+    QuoteView()
+}
+
+#Preview("Error") {
+    let _ = prepareDependencies {
+        $0.apiClient.getRandomQuote = { throw APIClient.Error.quoteNotFound }
+    }
+
+    QuoteView()
+}
+
+#Preview("Loading") {
+    let _ = prepareDependencies {
+        $0.apiClient.getRandomQuote = { try await Task.never() }
+    }
+
+    QuoteView()
+}
+#endif
