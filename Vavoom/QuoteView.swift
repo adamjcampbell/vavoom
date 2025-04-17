@@ -3,7 +3,7 @@ import Sharing
 import SwiftUI
 
 struct QuoteView: View {
-    @State.SharedReader(.animeQuote) var animeQuote
+    @State.SharedReader(value: Optional<AnimeQuote>.none) var animeQuote
 
     var quote: String {
         animeQuote?.quote ??
@@ -64,6 +64,13 @@ struct QuoteView: View {
         .defaultScrollAnchor(.center)
         .refreshable {
             Task { try await refresh() }
+        }
+        .task {
+            do {
+                try await refresh()
+            } catch {
+                // Intentionally left blank, errors are handled by SharedReader
+            }
         }
     }
 
